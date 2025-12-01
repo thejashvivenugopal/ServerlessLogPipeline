@@ -1,0 +1,42 @@
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+
+# Virtual envs
+.venv/
+venv/
+
+# Local env/config files
+.env
+*.env
+*.env.local
+
+# Lambda build artifacts (zips & build dirs)
+services/**/build/
+*.zip
+
+# Logs
+*.log
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.*
+crash.log
+crash.*.log
+
+# Optional: ignore root-level tfvars only (keep env/dev.tfvars tracked)
+terraform.tfvars
+terraform.tfvars.json
+infra/env/dev.tfvars
