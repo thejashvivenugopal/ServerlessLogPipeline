@@ -1,25 +1,14 @@
-locals {
-  name_prefix = "${var.project}-${var.env}"
-}
-
-resource "aws_sqs_queue" "ingest_dlq" {
-  name = "${local.name_prefix}-ingest-dlq"
-
-  message_retention_seconds = 1209600         # 14 days
-  kms_master_key_id         = "alias/aws/sqs" # AWS-managed KMS
-}
-
 resource "aws_sqs_queue" "ingest_queue" {
-  name = "${local.name_prefix}-ingest-queue"
-
-  visibility_timeout_seconds = 60      # >= worker lambda timeout
-  message_retention_seconds  = 1209600 # 14 days
-  receive_wait_time_seconds  = 0
-
+  name                      = "${var.project}-${var.environment}-ingest"
+  visibility_timeout_seconds = 120
+  message_retention_seconds  = 86400
+  receive_wait_time_seconds  = 1
   redrive_policy = jsonencode({
-    deadLetterTargetArn = aws_sqs_queue.ingest_dlq.arn
     maxReceiveCount     = 5
+    deadLetterTargetArn = aws_sqs_queue.dlq.arn
   })
+}
 
-  kms_master_key_id = "alias/aws/sqs" # encrypted at rest
+resource "aws_sqs_queue" "dlq" {
+  name = "${var.project}-${var.environment}-dlq"
 }

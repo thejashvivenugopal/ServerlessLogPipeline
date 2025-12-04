@@ -21,14 +21,14 @@ venv/
 *.env
 *.env.local
 
-# Lambda build artifacts (zips & build dirs)
+# Lambda build artifacts
 services/**/build/
-*.zip
+services/build/lambda.zip
 
 # Logs
 *.log
 
-# Terraform
+# Terraform internals
 .terraform/
 .terraform.lock.hcl
 terraform.tfstate
@@ -36,7 +36,6 @@ terraform.tfstate.*
 crash.log
 crash.*.log
 
-# Optional: ignore root-level tfvars only (keep env/dev.tfvars tracked)
+# Optional: ignore root-level tfvars only
 terraform.tfvars
 terraform.tfvars.json
-infra/env/dev.tfvars
