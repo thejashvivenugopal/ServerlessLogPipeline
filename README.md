@@ -102,7 +102,18 @@ INGEST_URL=$(terraform output -raw ingest_url)
 
 # JSON example
 ```
-curl -X POST "$INGEST_URL" \
--H "Content-Type: application/json" \
--d '{"tenant_id":"acme","text":"hello"}'
+curl --location '$INGEST_URL' \
+--header 'Content-Type: application/json' \
+--data '{
+    "tenant_id": "acme_corp",
+    "text": "User 555-0199 accessed system"
+  }'
+```
+
+# Raw Text example
+```
+curl --location '$INGEST_URL' \
+--header 'Content-Type: text/plain' \
+--header 'X-Tenant-ID: beta_inc' \
+--data 'Raw log dump with 555-0199 inside'
 ```
